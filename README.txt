@@ -9,7 +9,7 @@ This is a first version, more development is needed to meet the needs of Digital
 
 ======================================================================================
 
-INSTALLATION INSTRUCTIONS HERE:
+INSTALLATION INSTRUCTIONS HERE: Dependencies need installing before running goth. 
 
 ======================================================================================
 
