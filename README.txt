@@ -11,6 +11,11 @@ This is a first version, more development is needed to meet the needs of Digital
 
 INSTALLATION INSTRUCTIONS HERE:
 
+Mention bundle install, bundle exec
+Mention bundle config
+
+Your Ruby version is 2.7.0, but your Gemfile specified 2.7.4
+
 ======================================================================================
 
 The application requires three parameters. 
