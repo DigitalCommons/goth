@@ -31,7 +31,7 @@ Name:	A token appended to the URI of a DCMI namespace to create the URI of the t
 Label:	The human-readable label assigned to the term.<br>
 URI:	The Uniform Resource Identifier used to uniquely identify a term.<br>
 Description:	A statement that represents the concept and essential nature of the term.<br>
-Type of Term:	The type of term as described in the DCMI Abstract Model [DCAM] WHAT IS DCAM AND ITS LINK?.<br>
+Type of Term:	The type of term as described in the DCMI Abstract Model [DCAM] <br>
 <br>
 Where applicable, the following attributes provide additional information about a term:<br>
 <br>
