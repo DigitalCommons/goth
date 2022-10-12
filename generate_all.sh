@@ -4,8 +4,8 @@ PATH1="ess_vocabs"
 PATH2="ess_vocabs"
 
 ### Change PATHs as required.
-### Default PATHs point to the input examples included with GOTH. 
-### This data was taken from the SEA repository PATHs below:
+### Default PATHs point to the input examples included with GOTH, 
+### this data was taken from the SEA repository PATHs below:
 ### PATH1=SolidarityEconomyAssociation/map-sse/tree/ica10-draft-locality-vocabs/vocabs/vocab/
 ### PATH2=SolidarityEconomyAssociation/map-sse/blob/ica10-draft-locality-vocabs/vocabs/standard/
 
