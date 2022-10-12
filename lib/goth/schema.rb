@@ -30,8 +30,10 @@ module GOTH
 		@extra_models = extra_models
 
 		@html_language_s = html_language_s
-		@html_language = :en 
-		if html_language_s == "es"
+		@html_language = :en #default
+        if html_language_s == "en"
+	        @html_language = :en
+        elsif html_language_s == "es"
 	        @html_language = :es
 	    elsif html_language_s == "pt"
 	        @html_language = :pt
@@ -53,40 +55,25 @@ module GOTH
       if files == nil
         raise "Filename must be provided"
       end
-
-
-#      #https://github.com/SolidarityEconomyAssociation/map-sse/tree/ica10-draft-locality-vocabs/vocabs/vocab/essglobal-vocab.ttl
-#      model = RDF::Graph.load(file) # ess_vocabs/essglobal-vocab.ttl
-#
-#	  #https://github.com/SolidarityEconomyAssociation/map-sse/blob/ica10-draft-locality-vocabs/vocabs/standard/
-#	  extra_models = []
-#	  extra_models << RDF::Graph.load("ess_vocabs/activities.ttl")
-#	  extra_models << RDF::Graph.load("ess_vocabs/activities-modified.ttl")
-#	  extra_models << RDF::Graph.load("ess_vocabs/activities-ica.ttl")
-#	  extra_models << RDF::Graph.load("ess_vocabs/legal-form.ttl")
-#	  extra_models << RDF::Graph.load("ess_vocabs/organisational-structure.ttl")
-#	  extra_models << RDF::Graph.load("ess_vocabs/base-membership-type.ttl")
-#	  extra_models << RDF::Graph.load("ess_vocabs/qualifiers.ttl")
-#	  extra_models << RDF::Graph.load("ess_vocabs/type-of-labour.ttl")
 	  
-    model = 0
-    extra_models = []
-    bluff = 0
+      model = 0
+      extra_models = []
+      modelloaded = false
 
-    files.each do |x|
+      files.each do |x|
 
-        if (bluff == 1)
+        if (modelloaded)
 	        extra_models << RDF::Graph.load(x)
         end
 		
-		if (bluff == 0) 
-            bluff = 1
+		if (!modelloaded) 
             model = RDF::Graph.load(x) 
-        end
+            modelloaded = true
+	    end
 		
-    end
+      end
 	  	  
-	Schema.new(html_language_s, model, extra_models)
+	  Schema.new(html_language_s, model, extra_models)
 
 
 #      dir = File.dirname(file)
@@ -116,10 +103,8 @@ module GOTH
 
       @sub_concepts = init_sub_concepts(GOTH::Namespaces::SKOS.Concept)
 
-	  num_models = extra_models.length()
-	  @extra_conceptss = []
-	  
-	  for i in 1..num_models do
+	  @extra_conceptss = []	  
+	  for i in 1..extra_models.length() do
 	    @extra_conceptss << init_conceptss( i-1, GOTH::Namespaces::SKOS.Concept)        
       end
 	  
