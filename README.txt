@@ -5,27 +5,29 @@ GOTH (Generate OWL to HTML) is a simple command-line tool for generating human-r
 Author: Thomas Davison, on behalf of Digital Commons.
 Original seed for this code downloaded 28/03/2022 from: https://github.com/ldodds/dowl
 
-This is a first version, more development is needed to meet the needs of Digital Commons.
-
 ======================================================================================
 
-INSTALLATION INSTRUCTIONS HERE: Dependencies need installing before running goth. 
+INSTALLATION INSTRUCTIONS HERE: GOTH to be made into a Ruby Gem, dependencies need installing before running GOTH.
 
 ======================================================================================
 
 The application requires three parameters. 
-Parameter 1: location of the .ttl vocab/schema file to parse, it must contain an ontology.
+Parameter 1: locations of the .ttl vocab/schema files to parse, it must contain an ontology.
 Parameter 2: language tag indicating which language to extract from the .tll, e.g. en or fr.
 Parameter 3: location of the .erb file that contains the HTML template for output.
 
 The script sends its output to STDOUT so just pipe it into a file.
 
 E.g:
-bash$ bin/goth essglobal-vocab.ttl en esstemplate.erb > essglobal-vocab_en.html
+bash$ bin/goth [array of input files] -l en -t esstemplate.erb > essglobal-vocab_en.html
+
+The generate_all.sh script demonstrates a workable usecase.
+
+-l and -t are optional arguments. If these options are not specified the defaults "en" and "esstemplate.erb" will be used.
 
 The script will automatically include the contents of introduction.html, if found in the same directory as the schema, into the documentation. This file should contain a HTML fragment.
 
-The script relies on a .csv file which contains translations for phrases within the HTML (in addition to translations already contained within the .ttl itself). Its directory is currently hardcoded. When generating this .csv from the .xlxs, ensure that "CSV UTF-8 (Comma delimited)" is selected.
+The script relies on a .csv file which contains translations for phrases within the HTML (in addition to translations already contained within the .ttl itself). Its directory is currently hardcoded. If generating this .csv from a .xlxs, ensure that "CSV UTF-8 (Comma delimited)" is selected.
 
 ======================================================================================
 
