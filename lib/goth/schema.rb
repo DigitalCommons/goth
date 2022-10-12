@@ -49,34 +49,56 @@ module GOTH
         init()
     end
 
-    def Schema.create_from_file(file=nil, html_language_s)
-      if file == nil
+    def Schema.create_from_file(files=nil, html_language_s)
+      if files == nil
         raise "Filename must be provided"
       end
 
-      #https://github.com/SolidarityEconomyAssociation/map-sse/tree/ica10-draft-locality-vocabs/vocabs/vocab/essglobal-vocab.ttl
-      model = RDF::Graph.load(file)
 
-	  #https://github.com/SolidarityEconomyAssociation/map-sse/blob/ica10-draft-locality-vocabs/vocabs/standard/
-	  extra_models = []
-	  extra_models << RDF::Graph.load("ess_vocabs/activities.ttl")
-	  extra_models << RDF::Graph.load("ess_vocabs/activities-modified.ttl")
-	  extra_models << RDF::Graph.load("ess_vocabs/activities-ica.ttl")
-	  extra_models << RDF::Graph.load("ess_vocabs/legal-form.ttl")
-	  extra_models << RDF::Graph.load("ess_vocabs/organisational-structure.ttl")
-	  extra_models << RDF::Graph.load("ess_vocabs/base-membership-type.ttl")
-	  extra_models << RDF::Graph.load("ess_vocabs/qualifiers.ttl")
-	  extra_models << RDF::Graph.load("ess_vocabs/type-of-labour.ttl")
+#      #https://github.com/SolidarityEconomyAssociation/map-sse/tree/ica10-draft-locality-vocabs/vocabs/vocab/essglobal-vocab.ttl
+#      model = RDF::Graph.load(file) # ess_vocabs/essglobal-vocab.ttl
+#
+#	  #https://github.com/SolidarityEconomyAssociation/map-sse/blob/ica10-draft-locality-vocabs/vocabs/standard/
+#	  extra_models = []
+#	  extra_models << RDF::Graph.load("ess_vocabs/activities.ttl")
+#	  extra_models << RDF::Graph.load("ess_vocabs/activities-modified.ttl")
+#	  extra_models << RDF::Graph.load("ess_vocabs/activities-ica.ttl")
+#	  extra_models << RDF::Graph.load("ess_vocabs/legal-form.ttl")
+#	  extra_models << RDF::Graph.load("ess_vocabs/organisational-structure.ttl")
+#	  extra_models << RDF::Graph.load("ess_vocabs/base-membership-type.ttl")
+#	  extra_models << RDF::Graph.load("ess_vocabs/qualifiers.ttl")
+#	  extra_models << RDF::Graph.load("ess_vocabs/type-of-labour.ttl")
+	  
+    model = 0
+    extra_models = []
+    bluff = 0
 
-      dir = File.dirname(file)
-      if File.exists?(File.join(dir, "introduction.html"))         
-        return Schema.new(html_language_s, model, extra_models, File.join(dir, "introduction.html"))
-      elsif File.exists?( File.join(dir, "introduction.md"))
-        return Schema.new(html_language_s, model, extra_models, File.join(dir, "introduction.md"))
-      else
-        return Schema.new(html_language_s, model, extra_models)
-      end            
+    files.each do |x|
+
+        if (bluff == 1)
+	        extra_models << RDF::Graph.load(x)
+        end
+		
+		if (bluff == 0) 
+            bluff = 1
+            model = RDF::Graph.load(x) 
+        end
+		
+    end
+	  	  
+	Schema.new(html_language_s, model, extra_models)
+
+
+#      dir = File.dirname(file)
+#      if File.exists?(File.join(dir, "introduction.html"))         
+#        return Schema.new(html_language_s, model, extra_models, File.join(dir, "introduction.html"))
+#      elsif File.exists?( File.join(dir, "introduction.md"))
+#        return Schema.new(html_language_s, model, extra_models, File.join(dir, "introduction.md"))
+#      else
+#        return Schema.new(html_language_s, model, extra_models)
+#      end            
     end       
+
 
     def init()
 
@@ -94,16 +116,13 @@ module GOTH
 
       @sub_concepts = init_sub_concepts(GOTH::Namespaces::SKOS.Concept)
 
+	  num_models = extra_models.length()
 	  @extra_conceptss = []
-	  @extra_conceptss << init_conceptss( 0, GOTH::Namespaces::SKOS.Concept)
-	  @extra_conceptss << init_conceptss( 1, GOTH::Namespaces::SKOS.Concept)
-      @extra_conceptss << init_conceptss( 2, GOTH::Namespaces::SKOS.Concept)
-      @extra_conceptss << init_conceptss( 3, GOTH::Namespaces::SKOS.Concept)
-      @extra_conceptss << init_conceptss( 4, GOTH::Namespaces::SKOS.Concept)
-      @extra_conceptss << init_conceptss( 5, GOTH::Namespaces::SKOS.Concept)
-      @extra_conceptss << init_conceptss( 6, GOTH::Namespaces::SKOS.Concept)
-      @extra_conceptss << init_conceptss( 7, GOTH::Namespaces::SKOS.Concept)
-
+	  
+	  for i in 1..num_models do
+	    @extra_conceptss << init_conceptss( i-1, GOTH::Namespaces::SKOS.Concept)        
+      end
+	  
     end
 
 	### Initialisation methods ###
