@@ -43,7 +43,7 @@
 		  	<dt><%= schema.get_html_translation("identifier") %></dt>
 		  	<dd><%= schema.ontology.identifier %></dd>
           <% else %>
-		    <dt>IDENTIFIER = THIS PAGE'S HOST URI</dt>
+		     <% if !schema.templatehiddens %><dt>IDENTIFIER = THIS PAGE'S HOST URI</dt><% end %>
 		  <% end %>
           <% if schema.ontology.issued %>		  	
 		  	<dt><%= schema.get_html_translation("issued") %></dt>
@@ -163,6 +163,7 @@
 		<div id="section1">
 			<h2><%= schema.get_html_translation("section1") %></h2>
 		    <p><%= schema.get_html_translation("section1_header") %></p>
+	        <% if !schema.templatehiddens %><dt>WHAT IS DCAM AND ITS LINK?</dt><% end %>
 		</div>
 
 
@@ -181,13 +182,13 @@
 	   				<div class="span10">
 		   			    <table class="table">
 
-                            <tr><td><%= schema.get_html_translation("uri") %></td><td><a href="<%= t[1].uri %>"><%= t[1].uri %></a></ts></tr>		       
-						    <tr><td><%= schema.get_html_translation("label") %></td><td><%= t[1].label %> </ts></tr>
-		   			        <tr><td><%= schema.get_html_translation("description") %></td><td><%= t[1].description %> </ts></tr>
+                            <tr><td><%= schema.get_html_translation("uri") %></td><td><a href="<%= t[1].uri %>"><%= t[1].uri %></a></td></tr>		       
+						    <tr><td><%= schema.get_html_translation("label") %></td><td><%= t[1].label %> </td></tr>
+		   			        <tr><td><%= schema.get_html_translation("description") %></td><td><%= t[1].description %> </td></tr>
 							<% if t[1].comment %>
-							    <tr><td><%= schema.get_html_translation("comment") %></td><td><%= t[1].comment %></ts></tr>
+							    <tr><td><%= schema.get_html_translation("comment") %></td><td><%= t[1].comment %></td></tr>
 		                    <% end %>	
-								<tr><td><%= schema.get_html_translation("type_of_term") %></td><td><a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"><%= t[1].typeOfTerm %></a></ts></tr>
+								<tr><td><%= schema.get_html_translation("type_of_term") %></td><td><a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"><%= t[1].typeOfTerm %></a></td></tr>
 
 						    <% if t[1].sub_property_of %>
 							    <% if t[1].sub_property_of.class.to_s == "String" %>	   				
@@ -233,9 +234,9 @@
 				   					</td>
 				   					</tr>
 				   				<% end %>
-				   				<tr><td><%= schema.get_html_translation("member") %></td><td><a href=" www.web.com"><%=  %> SOME URI</a> (if some, could be multiple, info not in ttls, hyperlinks to section 4 terms, aka "in scheme")</ts></tr>
+				   				<% if !schema.templatehiddens %><tr><td><%= schema.get_html_translation("member") %></td><td><a href=" www.web.com"><%=  %> SOME URI</a> (if some, could be multiple, info not in ttls, hyperlinks to section 4 terms, aka "in scheme")</td></tr><% end %>
                                 <% if t[1].equivalentProperty %>
-								    <tr><td><%= schema.get_html_translation("equivalent") %></td><td><a href="<%= t[1].equivalentProperty %>"><%= t[1].equivalentProperty %></a></ts></tr>
+								    <tr><td><%= schema.get_html_translation("equivalent") %></td><td><a href="<%= t[1].equivalentProperty %>"><%= t[1].equivalentProperty %></a></td></tr>
 		                        <% end %>
 
 							</table>	   		
@@ -281,14 +282,14 @@
 	   					<div class="span10">
 		   				<table class="table">
 
-		   				<tr><td><%= schema.get_html_translation("uri") %></td><td><a href="<%= t[1].uri %>"><%= t[1].uri %></a></ts></tr>
-						<tr><td><%= schema.get_html_translation("label") %></td><td><%= t[1].label %> </ts></tr>
-		   				<tr><td><%= schema.get_html_translation("description") %></td><td><%= t[1].description %> </ts></tr>
+		   				<tr><td><%= schema.get_html_translation("uri") %></td><td><a href="<%= t[1].uri %>"><%= t[1].uri %></a></td></tr>
+						<tr><td><%= schema.get_html_translation("label") %></td><td><%= t[1].label %> </td></tr>
+		   				<tr><td><%= schema.get_html_translation("description") %></td><td><%= t[1].description %> </td></tr>
 						<% if t[1].comment %>
-						    <tr><td><%= schema.get_html_translation("comment") %></td><td><%= t[1].comment %></ts></tr>
+						    <tr><td><%= schema.get_html_translation("comment") %></td><td><%= t[1].comment %></td></tr>
                         <% end %>							
-				        <tr><td><%= schema.get_html_translation("type_of_term") %></td><td><a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#Class"><%= t[1].typeOfTerm %></a></ts></tr>
-						<tr><td><%= schema.get_html_translation("narrower") %></td><td><a href="www.web.com"><%=  %>SOME URI</a> (if some, info not in ttls, aka "narrower than") </ts></tr>
+				        <tr><td><%= schema.get_html_translation("type_of_term") %></td><td><a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#Class"><%= t[1].typeOfTerm %></a></td></tr>
+						<% if !schema.templatehiddens %><tr><td><%= schema.get_html_translation("narrower") %></td><td><a href="www.web.com"><%=  %>SOME URI</a> (if some, info not in ttls, aka "narrower than") </td></tr><% end %>
 
     					<% if t[1].sub_class_of %>
 		   					<% if t[1].sub_class_of.class.to_s == "String" %>	   				
@@ -351,14 +352,14 @@
 	   					<div class="span10">
 		   				<table class="table">
 
-		   				<tr><td><%= schema.get_html_translation("uri") %></td><td><a href="<%= t[1].uri %>"><%= t[1].uri %></a></ts></tr>
-						<tr><td><%= schema.get_html_translation("label") %></td><td><%= t[1].label %> </ts></tr>
-		   				<tr><td><%= schema.get_html_translation("description") %></td><td><%= t[1].description %> </ts></tr>
+		   				<tr><td><%= schema.get_html_translation("uri") %></td><td><a href="<%= t[1].uri %>"><%= t[1].uri %></a></td></tr>
+						<tr><td><%= schema.get_html_translation("label") %></td><td><%= t[1].label %> </td></tr>
+		   				<tr><td><%= schema.get_html_translation("description") %></td><td><%= t[1].description %> </td></tr>
 						<% if t[1].comment %>
-						    <tr><td><%= schema.get_html_translation("comment") %></td><td><%= t[1].comment %></ts></tr>
+						    <tr><td><%= schema.get_html_translation("comment") %></td><td><%= t[1].comment %></td></tr>
                         <% end %>							
-				        <tr><td><%= schema.get_html_translation("type_of_term") %></td><td><a href="www.web.com"><%=  %></a> (SubConcept) INSERT URL </ts></tr>
-						<tr><td><%= schema.get_html_translation("narrower") %></td><td><a href="www.web.com"><%=  %>SOME URI</a> SUB CLASS OF </ts></tr>
+				        <% if !schema.templatehiddens %><tr><td><%= schema.get_html_translation("type_of_term") %></td><td><a href="www.web.com"><%=  %></a> (SubConcept) INSERT URL </td></tr><% end %>
+						<% if !schema.templatehiddens %><tr><td><%= schema.get_html_translation("narrower") %></td><td><a href="www.web.com"><%=  %>SOME URI</a> SUB CLASS OF </td></tr><% end %>
 
     					<% if t[1].sub_class_of %>
 		   					<% if t[1].sub_class_of.class.to_s == "String" %>	   				
@@ -425,20 +426,20 @@
 	   					<div class="span10">
 		   				<table class="table">
 
-		   				 <tr><td><%= schema.get_html_translation("uri") %></td><td><a href="<%= t[1].uri %>"><%= t[1].uri %></a></ts></tr>
-						  <tr><td><%= schema.get_html_translation("pref_label") %></td><td><%= t[1].prefLabel() %> </ts></tr>
-						  <tr><td><%= schema.get_html_translation("alt_label") %></td><td><%= t[1].altLabel() %> </ts></tr>
-                          <tr><td><%= schema.get_html_translation("scope_note") %></td><td><%= t[1].scopeNote() %></ts></tr>
+		   				 <tr><td><%= schema.get_html_translation("uri") %></td><td><a href="<%= t[1].uri %>"><%= t[1].uri %></a></td></tr>
+						  <tr><td><%= schema.get_html_translation("pref_label") %></td><td><%= t[1].prefLabel() %> </td></tr>
+						  <tr><td><%= schema.get_html_translation("alt_label") %></td><td><%= t[1].altLabel() %> </td></tr>
+                          <tr><td><%= schema.get_html_translation("scope_note") %></td><td><%= t[1].scopeNote() %></td></tr>
 	                      <% if t[1].comment %>
-							<tr><td><%= schema.get_html_translation("comment") %></td><td><%= t[1].comment %></a></ts></tr>
+							<tr><td><%= schema.get_html_translation("comment") %></td><td><%= t[1].comment %></a></td></tr>
 		                  <% end %>	
-						  <tr><td><%= schema.get_html_translation("type_of_term") %></td><td><a href="https://www.w3.org/TR/skos-reference/#concepts"><%= t[1].typeOfTerm %></a></ts></tr>
-						  <tr><td><%= schema.get_html_translation("in_scheme") %></td><td><a href="<%= t[1].inScheme %>"><%= t[1].inScheme %></a></ts></tr>
+						  <tr><td><%= schema.get_html_translation("type_of_term") %></td><td><a href="https://www.w3.org/TR/skos-reference/#concepts"><%= t[1].typeOfTerm %></a></td></tr>
+						  <tr><td><%= schema.get_html_translation("in_scheme") %></td><td><a href="<%= t[1].inScheme %>"><%= t[1].inScheme %></a></td></tr>
     				      <% if false %>
-							<tr><td><%= schema.get_html_translation("norrower") %></td><td><%= t[1].narrower %> INFO NOT IN TTLs</ts></tr>
+							<tr><td><%= schema.get_html_translation("norrower") %></td><td><%= t[1].narrower %> INFO NOT IN TTLs</td></tr>
 		                  <% end %>	
 	                      <% if t[1].broader %>
-							<tr><td><%= schema.get_html_translation("broader") %></td><td><a href="<%= t[1].broader %>"><%= t[1].broader %></a></ts></tr>
+							<tr><td><%= schema.get_html_translation("broader") %></td><td><a href="<%= t[1].broader %>"><%= t[1].broader %></a></td></tr>
 		                  <% end %>
 
 						 </table>	   		
@@ -458,7 +459,7 @@
 	 <% end %>	
 
 
-
+<% if !schema.templatehiddens %>
 		<div id="references">
 			<h2><%= schema.get_html_translation("section9") %></h2>
 
@@ -467,7 +468,7 @@
 		 <p>"unit" has a "comment" in the old html page, this comment is absent from our .ttls. The comment: RIPESS recomends the use of the UN/CEFACT common Coding System [1] for this property</p>
 
 		</div>
-
+<% end %>
 
 
 	</div>

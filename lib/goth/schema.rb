@@ -7,6 +7,7 @@ module GOTH
 
     attr_reader :model
     attr_reader :introduction
+    attr_reader :templatehiddens
 
 	attr_reader :datatype_properties
     attr_reader :object_properties
@@ -24,12 +25,13 @@ module GOTH
     def initialize(html_language_s, model, extra_models, introduction=nil)
         @model = model
         @introduction = introduction	
-
+        @templatehiddens = true
+		
 		@extra_models = extra_models
 
 		@html_language_s = html_language_s
-		@html_language = :en
-        if html_language_s == "es"
+		@html_language = :en 
+		if html_language_s == "es"
 	        @html_language = :es
 	    elsif html_language_s == "pt"
 	        @html_language = :pt
