@@ -19,8 +19,8 @@ module GOTH
       if file == nil
         raise "Filename should be provided"
       end
-      model = RDF::Graph.new(file)
-      model.load!
+      model = RDF::Graph.new() 
+      model.load(file)
       
       dir = File.dirname(file)
       if File.exists?(File.join(dir, "introduction.html"))         
