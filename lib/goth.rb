@@ -6,9 +6,9 @@ require 'redcarpet'
 
 require 'goth/util'
 require 'goth/schema'
-require 'goth/class'
-require 'goth/property'
-require 'goth/ontology'
+require 'goth/terms/class'
+require 'goth/terms/property'
+require 'goth/terms/ontology'
 require 'goth/generator'
 
 module GOTH
