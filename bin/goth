@@ -5,13 +5,13 @@ require 'getoptlong'
 require 'goth'
 require 'erb'
 
-PROGRAM     = File::basename $0
-
-schema = GOTH::Schema.create_from_file(ARGV[0])
-if ARGV[1]
-  generator = GOTH::Generator.new( schema, ARGV[1] )
+schema = GOTH::Schema.create_from_file(ARGV[0], ARGV[1])
+if ARGV[2]
+  generator = GOTH::Generator.new( schema, ARGV[2] )
 else
   generator = GOTH::Generator.new( schema )
 end
 file = generator.run()
-puts file
+puts file #output the result to terminal
+
+#TODO: generator.schema.remove_assests()
