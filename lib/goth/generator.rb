@@ -17,7 +17,7 @@ module GOTH
     
     def Generator.default_template()
        dir = File.dirname( __FILE__ )
-       return default_template_file = File.join(dir, "default.erb")
+       return default_template_file = File.join(dir, "../../esstemplate.erb")
     end
     
     def copy_assets
