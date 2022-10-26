@@ -1,1 +1,9 @@
-/.gems/
+*~
+*#
+
+/*.css
+/*.js
+
+run_all.sh
+statements.txt
+*.html
