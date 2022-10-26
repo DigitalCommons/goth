@@ -11,7 +11,7 @@ INSTALLATION INSTRUCTIONS HERE: GOTH to be made into a Ruby Gem, dependencies ne
 
 ======================================================================================
 
-The application requires three parameters. 
+The application requires three parameters.
 Parameter 1: locations of the .ttl vocab/schema files to parse, it must contain an ontology.
 Parameter 2: language tag indicating which language to extract from the .tll, e.g. en or fr.
 Parameter 3: location of the .erb file that contains the HTML template for output.

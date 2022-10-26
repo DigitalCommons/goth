@@ -15,10 +15,10 @@ language = "en"
 
 options.each do |opt, arg|
   case opt
-   when '--language'
-     language = arg
-   when '--template'
-     template = arg
+  when '--language'
+    language = arg
+  when '--template'
+    template = arg
   end
 end
 
