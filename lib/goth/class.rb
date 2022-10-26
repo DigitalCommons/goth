@@ -1,6 +1,6 @@
-module DOWL
+module GOTH
   
-  class Class < DOWL::LabelledDocObject
+  class Class < GOTH::LabelledDocObject
     include Comparable
     
     attr_reader :resource
@@ -15,7 +15,7 @@ module DOWL
     
     def sub_class_of()
       parent = @schema.model.first_value( 
-        RDF::Query::Pattern.new( @resource, DOWL::Namespaces::RDFS.subClassOf ) )        
+        RDF::Query::Pattern.new( @resource, GOTH::Namespaces::RDFS.subClassOf ) )        
       if parent
         uri = parent.to_s
         if @schema.classes[uri]
@@ -30,7 +30,7 @@ module DOWL
     def see_alsos()
        links = []
        @schema.model.query( 
-         RDF::Query::Pattern.new( @resource, DOWL::Namespaces::RDFS.seeAlso ) ) do |statement|
+         RDF::Query::Pattern.new( @resource, GOTH::Namespaces::RDFS.seeAlso ) ) do |statement|
          links << statement.object.to_s
        end
        return links
@@ -44,8 +44,8 @@ module DOWL
       list = []
         
       @schema.model.query(
-        RDF::Query::Pattern.new( nil, DOWL::Namespaces::RDFS.subClassOf, @resource) ) do |statement|
-          list << DOWL::Class.new(statement.subject, @schema)
+        RDF::Query::Pattern.new( nil, GOTH::Namespaces::RDFS.subClassOf, @resource) ) do |statement|
+          list << GOTH::Class.new(statement.subject, @schema)
       end
       return list
     end

@@ -1,4 +1,4 @@
-module DOWL
+module GOTH
   
   class DocObject
     attr_reader :resource
@@ -14,7 +14,7 @@ module DOWL
     
   end
   
-  class LabelledDocObject < DOWL::DocObject
+  class LabelledDocObject < GOTH::DocObject
     
     def initialize(resource, schema)
        super(resource, schema)
@@ -31,15 +31,15 @@ module DOWL
     end
      
     def label()
-      return get_literal(DOWL::Namespaces::RDFS.label)
+      return get_literal(GOTH::Namespaces::RDFS.label)
     end
         
     def comment()
-      return get_literal(DOWL::Namespaces::RDFS.comment)
+      return get_literal(GOTH::Namespaces::RDFS.comment)
     end
     
     def status()      
-      return get_literal(DOWL::Namespaces::VS.term_status)
+      return get_literal(GOTH::Namespaces::VS.term_status)
     end
          
     def <=>(other)

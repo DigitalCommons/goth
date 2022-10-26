@@ -1,8 +1,8 @@
-require 'dowl'
+require 'goth'
 
-module DOWL
+module GOTH
   
-  class Person < DOWL::DocObject
+  class Person < GOTH::DocObject
      def initialize(resource, schema)
        super(resource, schema)
      end
@@ -12,7 +12,7 @@ module DOWL
      end
      
      def name()
-       name = get_literal(DOWL::Namespaces::FOAF.name)
+       name = get_literal(GOTH::Namespaces::FOAF.name)
        if name == nil
          name = uri()
        end
@@ -25,7 +25,7 @@ module DOWL
      
   end
   
-  class Ontology < DOWL::DocObject
+  class Ontology < GOTH::DocObject
    
     def initialize(resource, schema)
         super(resource, schema)  
@@ -36,25 +36,25 @@ module DOWL
     end
     
     def title()
-      return get_literal(DOWL::Namespaces::DCTERMS.title)
+      return get_literal(GOTH::Namespaces::DCTERMS.title)
     end
     
     def comment()
-      return get_literal(DOWL::Namespaces::RDFS.comment)
+      return get_literal(GOTH::Namespaces::RDFS.comment)
     end
         
     def created()
-      return get_literal(DOWL::Namespaces::DCTERMS.created)
+      return get_literal(GOTH::Namespaces::DCTERMS.created)
     end
 
     def modified()
-      return get_literal(DOWL::Namespaces::DCTERMS.modified)
+      return get_literal(GOTH::Namespaces::DCTERMS.modified)
     end
     
     def authors()      
       authors = []
       @schema.model.query( 
-        RDF::Query::Pattern.new( @resource, DOWL::Namespaces::FOAF.maker ) ) do |statement|
+        RDF::Query::Pattern.new( @resource, GOTH::Namespaces::FOAF.maker ) ) do |statement|
           authors << Person.new( statement.object, @schema )
       end         
       return authors.sort     

@@ -1,4 +1,4 @@
-module DOWL
+module GOTH
 
   class Generator
     

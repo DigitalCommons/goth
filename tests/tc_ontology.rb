@@ -1,12 +1,12 @@
 $:.unshift File.join(File.dirname(__FILE__), "..", "lib")
-require 'dowl'
+require 'goth'
 require 'test/unit'
 
 class OntologyTest < Test::Unit::TestCase
   
   def setup
     file = "examples/example.ttl"
-    @schema = DOWL::Schema.create_from_file(File.expand_path(file))         
+    @schema = GOTH::Schema.create_from_file(File.expand_path(file))         
   end
   
   def test_get_title

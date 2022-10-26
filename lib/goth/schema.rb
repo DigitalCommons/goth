@@ -1,4 +1,4 @@
-module DOWL
+module GOTH
   
   #Utility class providing access to information about the schema, e.g. its description, lists of classes, etc
   class Schema
@@ -34,14 +34,14 @@ module DOWL
     
     def init()
       @classes = Hash.new
-      init_classes( DOWL::Namespaces::OWL.Class )
-      init_classes( DOWL::Namespaces::RDFS.Class )
-      ontology = @model.first_subject( RDF::Query::Pattern.new( nil, RDF.type, DOWL::Namespaces::OWL.Ontology ) )
+      init_classes( GOTH::Namespaces::OWL.Class )
+      init_classes( GOTH::Namespaces::RDFS.Class )
+      ontology = @model.first_subject( RDF::Query::Pattern.new( nil, RDF.type, GOTH::Namespaces::OWL.Ontology ) )
       if ontology
         @ontology = Ontology.new(ontology, self)
       end
-      @datatype_properties = init_properties( DOWL::Namespaces::OWL.DatatypeProperty)      
-      @object_properties = init_properties( DOWL::Namespaces::OWL.ObjectProperty)
+      @datatype_properties = init_properties( GOTH::Namespaces::OWL.DatatypeProperty)      
+      @object_properties = init_properties( GOTH::Namespaces::OWL.ObjectProperty)
     end
     
     def ontology()
@@ -51,7 +51,7 @@ module DOWL
     def init_classes(type)
       @model.query( RDF::Query::Pattern.new( nil, RDF.type, type ) ) do |statement|
         if !statement.subject.anonymous?
-            cls = DOWL::Class.new(statement.subject, self)
+            cls = GOTH::Class.new(statement.subject, self)
             @classes[ statement.subject.to_s ] = cls                    
         end
       end      
@@ -60,7 +60,7 @@ module DOWL
     def init_properties(type)
       properties = Hash.new
       @model.query( RDF::Query::Pattern.new( nil, RDF.type, type ) ) do |statement|
-        properties[ statement.subject.to_s] = DOWL::Property.new(statement.subject, self)
+        properties[ statement.subject.to_s] = GOTH::Property.new(statement.subject, self)
       end      
       return properties      
     end

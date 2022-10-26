@@ -4,14 +4,14 @@ require 'fileutils'
 require 'linkeddata'
 require 'redcarpet'
 
-require 'dowl/util'
-require 'dowl/schema'
-require 'dowl/class'
-require 'dowl/property'
-require 'dowl/ontology'
-require 'dowl/generator'
+require 'goth/util'
+require 'goth/schema'
+require 'goth/class'
+require 'goth/property'
+require 'goth/ontology'
+require 'goth/generator'
 
-module DOWL
+module GOTH
       
   class Namespaces
 

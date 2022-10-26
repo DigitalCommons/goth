@@ -5,7 +5,7 @@ require 'rake/clean'
 
 CLEAN.include ['*.gem', 'pkg']  
 
-$spec = eval(File.read('dowl.gemspec'))
+$spec = eval(File.read('goth.gemspec'))
 
 Rake::RDocTask.new do |rdoc|
     rdoc.rdoc_dir = 'doc/rdoc'
@@ -19,17 +19,17 @@ Rake::TestTask.new do |test|
 end
 
 task :package do
-  sh %{gem build dowl.gemspec}  
+  sh %{gem build goth.gemspec}  
 end
 
 
 desc "Install from a locally built copy of the gem"
 task :install do
   sh %{rake package}
-  sh %{sudo gem install --no-ri --no-rdoc dowl-#{$spec.version}.gem}
+  sh %{sudo gem install --no-ri --no-rdoc goth-#{$spec.version}.gem}
 end
 
 desc "Uninstall the gem"
 task :uninstall => [:clean] do
-  sh %{sudo gem uninstall dowl}
+  sh %{sudo gem uninstall goth}
 end
