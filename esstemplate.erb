@@ -1,0 +1,479 @@
+<html>
+  <head>
+	<title><%= schema.ontology.title %></title>
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/codemirror/lib/codemirror.css">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+    </style>    
+  </head>
+
+
+  <body>
+
+	<div class="container" id="page">
+		<h1><%= schema.ontology.title %></h1>
+
+		<dl>
+          <% if schema.ontology.title %>
+		  	<dt><%= schema.get_html_translation("title") %></dt>
+		  	<dd><%= schema.ontology.title %> <%= schema.get_html_translation("title_supplement") %></dd>
+		  <% else %>
+		    <dt>NO TITLE (technical issue)</dt>
+		  <% end %>
+		  <% if schema.ontology.creator %>
+		  	<dt><%= schema.get_html_translation("creator") %></dt>
+		  	<dd><%= schema.ontology.creator %></dd>
+		  <% else %>
+		    <dt>NO CREATOR (technical issue)</dt>
+		  <% end %>
+          <% if schema.ontology.publisher %>		  	
+		  	<dt><%= schema.get_html_translation("publisher") %></dt>
+		  	<dd><%= schema.ontology.publisher %></dd>
+          <% else %>
+		    <dt>NO PUBLISHER (technical issue)</dt>
+		  <% end %>
+		  <% if false %>		  	
+		  	<dt><%= schema.get_html_translation("identifier") %></dt>
+		  	<dd><%= schema.ontology.identifier %></dd>
+          <% else %>
+		    <dt>IDENTIFIER = THIS PAGE'S HOST URI</dt>
+		  <% end %>
+          <% if schema.ontology.issued %>		  	
+		  	<dt><%= schema.get_html_translation("issued") %></dt>
+		  	<dd><%= schema.ontology.issued %></dd>
+          <% else %>
+		    <dt>NO ISSUED (technical issue)</dt>
+		  <% end %>
+		  <% if schema.ontology.modified %>		  	
+		  	<dt><%= schema.get_html_translation("modified") %></dt>
+		  	<dd><%= schema.ontology.modified %></dd>
+		  <% else %>
+		    <dt>NO MODIFIED (technical issue)</dt>
+		  <% end %>  
+		  <% if schema.ontology.description %>		  	
+    		<dt><%= schema.get_html_translation("description") %></dt>
+		  	<dd><%= schema.ontology.description %></dd>
+          <% else %>
+		    <dt>NO DESCRIPTION (technical issue)</dt>
+		  <% end %>
+
+          <% if schema.ontology.comment || introduction %>		  
+		      <h1><%= schema.get_html_translation("abstract") %></h1>
+		      <% if schema.ontology.comment %>
+			      <%= schema.ontology.comment %>
+		      <% end %>
+			  <% if introduction %>
+		          <%= introduction %>
+		      <% end %>
+		  <% end %>
+
+
+
+		<div id="contents">
+		    <h2><%= schema.get_html_translation("contents") %></h2>
+		    <p>
+			  <a href="#section1"><%= schema.get_html_translation("section1") %></a><br>
+			  <a href="#properties"><%= schema.get_html_translation("section2") %></a><br>
+			  <a href="#classes"><%= schema.get_html_translation("section3") %></a><br>
+			  <a href="#vesses"><%= schema.get_html_translation("section4") %></a><br>
+			  <a href="#concept_scheme_0"><%= schema.get_html_translation("concept_section0") %></a><br>
+			  <a href="#concept_scheme_1"><%= schema.get_html_translation("concept_section1") %></a><br>
+			  <a href="#concept_scheme_2"><%= schema.get_html_translation("concept_section2") %></a><br>
+			  <a href="#concept_scheme_3"><%= schema.get_html_translation("concept_section3") %></a><br>
+			  <a href="#concept_scheme_4"><%= schema.get_html_translation("concept_section4") %></a><br>
+			  <a href="#concept_scheme_5"><%= schema.get_html_translation("concept_section5") %></a><br>
+			  <a href="#concept_scheme_6"><%= schema.get_html_translation("concept_section6") %></a><br>
+			  <a href="#concept_scheme_7"><%= schema.get_html_translation("concept_section7") %></a><br>
+			  <a href="#references"><%= schema.get_html_translation("section9") %></a><br>
+			  </p>
+		</div>
+
+
+
+		<div id="overview">
+			<h2><%= schema.get_html_translation("index_of_terms") %></h2>
+
+			<p><%= schema.get_html_translation("index_of_terms_header") %></p>
+
+			<p><strong><%= schema.get_html_translation("properties") %></strong>:
+			 <% schema.list_properties().each do |key,val| %>
+			 | <a href="#prop_<%= val.short_name %>"><%= val.short_name %></a>
+			 <% end %>
+			</p>		
+			<p><strong><%= schema.get_html_translation("classes") %></strong>:
+			 <% schema.list_classes().each do |key,val| %>
+			 | <a href="#class_<%= val.short_name %>"><%= val.short_name %></a>
+			 <% end %>		
+			</p>
+			<p><strong><%= schema.get_html_translation("vesses") %></strong>:
+			 <% schema.list_sub_concepts().each do |key,val| %>
+			 | <a href="#ves_<%= val.short_name %>"><%= val.short_name %></a>
+			 <% end %>		
+			</p>
+			<p><strong><%= schema.get_html_translation("schema0") %></strong>:
+			 <% schema.list_extra_concepts(0).each do |key,val| %>
+			 | <a href="#concept_<%= val.short_name %>"><%= val.short_name %></a>
+			 <% end %>		
+			</p>
+	        <p><strong><%= schema.get_html_translation("schema1") %></strong>:
+			 <% schema.list_extra_concepts(1).each do |key,val| %>
+			 | <a href="#concept_<%= val.short_name %>"><%= val.short_name %></a>
+			 <% end %>		
+			</p>
+			<p><strong><%= schema.get_html_translation("schema2") %></strong>:
+			 <% schema.list_extra_concepts(2).each do |key,val| %>
+			 | <a href="#concept_<%= val.short_name %>"><%= val.short_name %></a>
+			 <% end %>		
+			</p>
+			<p><strong><%= schema.get_html_translation("schema3") %></strong>:
+			 <% schema.list_extra_concepts(3).each do |key,val| %>
+			 | <a href="#concept_<%= val.short_name %>"><%= val.short_name %></a>
+			 <% end %>		
+			</p>
+			<p><strong><%= schema.get_html_translation("schema4") %></strong>:
+			 <% schema.list_extra_concepts(4).each do |key,val| %>
+			 | <a href="#concept_<%= val.short_name %>"><%= val.short_name %></a>
+			 <% end %>		
+			</p>
+			<p><strong><%= schema.get_html_translation("schema5") %></strong>:
+			 <% schema.list_extra_concepts(5).each do |key,val| %>
+			 | <a href="#concept_<%= val.short_name %>"><%= val.short_name %></a>
+			 <% end %>		
+			</p>
+			<p><strong><%= schema.get_html_translation("schema6") %></strong>:
+			 <% schema.list_extra_concepts(6).each do |key,val| %>
+			 | <a href="#concept_<%= val.short_name %>"><%= val.short_name %></a>
+			 <% end %>		
+			</p>
+			<p><strong><%= schema.get_html_translation("schema7") %></strong>:
+			 <% schema.list_extra_concepts(7).each do |key,val| %>
+			 | <a href="#concept_<%= val.short_name %>"><%= val.short_name %></a>
+			 <% end %>		
+			</p>
+	    </div>
+
+
+		<div id="section1">
+			<h2><%= schema.get_html_translation("section1") %></h2>
+		    <p><%= schema.get_html_translation("section1_header") %></p>
+		</div>
+
+
+        <div id="properties">
+
+			<h2><%= schema.get_html_translation("section2") %></h2>
+
+	   		<%schema.list_properties().each do |t| %>	   			
+	   		<div class="term" id="prop_<%= t[1].short_name %>">
+
+	   			<h4><%= schema.get_html_translation("term_property") %>: <%= t[1].short_name %></h4>
+	   			<div class="row">
+	   				<div class="span2">
+	   				<h5><%= schema.get_html_translation("overview") %></h5>
+	   				</div>
+	   				<div class="span10">
+		   			    <table class="table">
+
+                            <tr><td><%= schema.get_html_translation("uri") %></td><td><a href="<%= t[1].uri %>"><%= t[1].uri %></a></ts></tr>		       
+						    <tr><td><%= schema.get_html_translation("label") %></td><td><%= t[1].label %> </ts></tr>
+		   			        <tr><td><%= schema.get_html_translation("description") %></td><td><%= t[1].description %> </ts></tr>
+							<% if t[1].comment %>
+							    <tr><td><%= schema.get_html_translation("comment") %></td><td><%= t[1].comment %></ts></tr>
+		                    <% end %>	
+								<tr><td><%= schema.get_html_translation("type_of_term") %></td><td><a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"><%= t[1].typeOfTerm %></a></ts></tr>
+
+						    <% if t[1].sub_property_of %>
+							    <% if t[1].sub_property_of.class.to_s == "String" %>	   				
+								<tr><td>Has Parent Property</td><td><a href="<%= t[1].sub_property_of %>"><%= t[1].sub_property_of %></a></td></tr>
+							    <% else %>
+								<tr><td>Has Parent Property</td><td><a href="#prop_<%= t[1].sub_property_of.short_name %>"><%= t[1].sub_property_of.short_name %></a></td></tr>
+			   					    <% end %>
+			   				    <% end %>
+			   				    <% if t[1].sub_properties.length > 0 %>
+								    <tr>
+									    <td>Sub-Properties</td>
+									    <td>
+										    <% t[1].sub_properties.each do |child| %>
+											    <a href="#prop_<%= child.short_name %>"><%= child.short_name %></a>
+							    			<% end %>
+								     	</td>
+								    </tr>
+			   				    <% end %>
+
+								<% if t[1].domain.length > 0 %>
+				   					<tr><td><%= schema.get_html_translation("domain") %></td>
+				   					<td>
+				   					<% t[1].domain.each do |cls| %>
+				   						<% if cls.class.to_s == "String" %>
+				   						<a href="<%= cls %>"><%= cls %></a><br>
+				   						<% else %>
+				   						<a href="#class_<%= cls.short_name %>"><%= cls.short_name %></a><br>
+				   						<% end %>
+				   					<% end %>		   				
+				   					</td>
+				   					</tr>
+				   				<% end %>
+								<% if t[1].range.length > 0 %>
+				   					<tr><td><%= schema.get_html_translation("range") %></td>
+				   					<td>
+				   					<% t[1].range.each do |cls| %>
+				   						<% if cls.class.to_s == "String" %>
+				   						<a href="<%= cls %>"><%= cls %></a><br>
+				   						<% else %>
+				   						<a href="#class_<%= cls.short_name %>"><%= cls.short_name %></a><br>
+				   						<% end %>
+				   					<% end %>		   				
+				   					</td>
+				   					</tr>
+				   				<% end %>
+				   				<tr><td><%= schema.get_html_translation("member") %></td><td><a href=" www.web.com"><%=  %> SOME URI</a> (if some, could be multiple, info not in ttls, hyperlinks to section 4 terms, aka "in scheme")</ts></tr>
+                                <% if t[1].equivalentProperty %>
+								    <tr><td><%= schema.get_html_translation("equivalent") %></td><td><a href="<%= t[1].equivalentProperty %>"><%= t[1].equivalentProperty %></a></ts></tr>
+		                        <% end %>
+
+							</table>	   		
+		   			    </div>		   				
+				    </div>		   	
+
+				    <div class="row">
+						<div class="offset2 span10">
+			   				<% if t[1].see_alsos.length > 0 %>
+				   				<p><em>Further Reading:</em></p>
+				   				<ul>	   			
+			   						<% t[1].see_alsos.each do |link| %>
+			   						<li><a href="<%= link %>"><%= link %></a></li>
+			   						<% end %>
+			   					</ul>
+			   				<% end %>
+						</div>			   				
+	   				</div>
+	   			</div>
+	   			<div class="row">
+	   				<div class="offset10">
+	   					<a href="#overview">Back to Overview</a>
+					</div>	   					
+	   			</div>
+	   			<hr>
+	  		<%end%>
+
+	    </div>
+
+
+
+		<div id="classes">
+			<h2><%= schema.get_html_translation("section3") %></h2>
+
+	   		<%schema.list_classes().each do |t| %>	   			
+	   			<div class="term" id="class_<%= t[1].short_name %>">
+
+	   				<h4><%= schema.get_html_translation("term_class") %>: <%= t[1].short_name %></h4>
+	   				<div class="row">
+	   					<div class="span2">
+	   					<h5><%= schema.get_html_translation("overview") %></h5>
+	   					</div>
+	   					<div class="span10">
+		   				<table class="table">
+
+		   				<tr><td><%= schema.get_html_translation("uri") %></td><td><a href="<%= t[1].uri %>"><%= t[1].uri %></a></ts></tr>
+						<tr><td><%= schema.get_html_translation("label") %></td><td><%= t[1].label %> </ts></tr>
+		   				<tr><td><%= schema.get_html_translation("description") %></td><td><%= t[1].description %> </ts></tr>
+						<% if t[1].comment %>
+						    <tr><td><%= schema.get_html_translation("comment") %></td><td><%= t[1].comment %></ts></tr>
+                        <% end %>							
+				        <tr><td><%= schema.get_html_translation("type_of_term") %></td><td><a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#Class"><%= t[1].typeOfTerm %></a></ts></tr>
+						<tr><td><%= schema.get_html_translation("narrower") %></td><td><a href="www.web.com"><%=  %>SOME URI</a> (if some, info not in ttls, aka "narrower than") </ts></tr>
+
+    					<% if t[1].sub_class_of %>
+		   					<% if t[1].sub_class_of.class.to_s == "String" %>	   				
+		   						<tr><td>Has Parent Class</td><td><a href="<%= t[1].sub_class_of %>"><%= t[1].sub_class_of %></a></td></tr>
+		   					<% else %>
+		   						<tr><td>Has Parent Class</td><td><a href="#class_<%= t[1].sub_class_of.short_name %>"><%= t[1].sub_class_of.short_name %></a></td></tr>
+		   					<% end %>
+		   				<% end %>
+		   				<% if t[1].sub_classes.length > 0 %>
+							<tr>
+								<td>Sub-Classes</td>
+								<td>
+									<% t[1].sub_classes.each do |child| %>
+										<a href="#class_<%= child.short_name %>"><%= child.short_name %></a>
+									<% end %>
+								</td>
+							</tr>
+		   				<% end %>
+
+		   				</table>	
+		   				</div>
+					</div>
+
+					<div class="row">
+						<div class="offset2 span10">
+			   				<% if t[1].see_alsos.length > 0 %>
+				   				<p><em>Further Reading:</em></p>
+				   				<ul>	   			
+			   						<% t[1].see_alsos.each do |link| %>
+			   						<li><a href="<%= link %>"><%= link %></a></li>
+			   						<% end %>
+			   					</ul>
+			   				<% end %>
+						</div>			   				
+	   				</div>
+	   			</div>
+	   			<div class="row">
+	   				<div class="offset10">
+	   					<a href="#overview">Back to Overview</a>
+					</div>	   					
+	   			</div>
+	   			<hr>
+	  		<%end%>		
+
+		</div>
+
+
+
+		<div id="vesses">
+			<h2><%= schema.get_html_translation("section4") %></h2>
+
+			<%schema.list_sub_concepts().each do |t| %>	   			
+	   			<div class="term" id="ves_<%= t[1].short_name %>">
+
+				<h4><%= schema.get_html_translation("term_ves") %>: <%= t[1].short_name %></h4>
+	   				<div class="row">
+	   					<div class="span2">
+	   					<h5><%= schema.get_html_translation("overview") %></h5>
+	   					</div>
+	   					<div class="span10">
+		   				<table class="table">
+
+		   				<tr><td><%= schema.get_html_translation("uri") %></td><td><a href="<%= t[1].uri %>"><%= t[1].uri %></a></ts></tr>
+						<tr><td><%= schema.get_html_translation("label") %></td><td><%= t[1].label %> </ts></tr>
+		   				<tr><td><%= schema.get_html_translation("description") %></td><td><%= t[1].description %> </ts></tr>
+						<% if t[1].comment %>
+						    <tr><td><%= schema.get_html_translation("comment") %></td><td><%= t[1].comment %></ts></tr>
+                        <% end %>							
+				        <tr><td><%= schema.get_html_translation("type_of_term") %></td><td><a href="www.web.com"><%=  %></a> (SubConcept) INSERT URL </ts></tr>
+						<tr><td><%= schema.get_html_translation("narrower") %></td><td><a href="www.web.com"><%=  %>SOME URI</a> SUB CLASS OF </ts></tr>
+
+    					<% if t[1].sub_class_of %>
+		   					<% if t[1].sub_class_of.class.to_s == "String" %>	   				
+		   						<tr><td>Has Parent Class</td><td><a href="<%= t[1].sub_class_of %>"><%= t[1].sub_class_of %></a></td></tr>
+		   					<% else %>
+		   						<tr><td>Has Parent Class</td><td><a href="#class_<%= t[1].sub_class_of.short_name %>"><%= t[1].sub_class_of.short_name %></a></td></tr>
+		   					<% end %>
+		   				<% end %>
+		   				<% if t[1].sub_classes.length > 0 %>
+							<tr>
+								<td>Sub-Classes</td>
+								<td>
+									<% t[1].sub_classes.each do |child| %>
+										<a href="#class_<%= child.short_name %>"><%= child.short_name %></a>
+									<% end %>
+								</td>
+							</tr>
+		   				<% end %>
+
+		   				</table>	   		
+		   				</div>		   				
+					</div>
+
+					<div class="row">
+						<div class="offset2 span10">
+			   				<% if t[1].see_alsos.length > 0 %>
+				   				<p><em>Further Reading:</em></p>
+				   				<ul>	   			
+			   						<% t[1].see_alsos.each do |link| %>
+			   						<li><a href="<%= link %>"><%= link %></a></li>
+			   						<% end %>
+			   					</ul>
+			   				<% end %>
+						</div>			   				
+	   				</div>
+	   			</div>
+	   			<div class="row">
+	   				<div class="offset10">
+	   					<a href="#overview">Back to Overview</a>
+					</div>	   					
+	   			</div>
+	   			<hr>
+	  		<%end%>		
+
+		</div>
+
+
+
+        <% index = -1 %>
+        <% schema.list_sub_concepts().each do |key,val| %>
+        <% index = index + 1 %>
+
+		<div id="concept_scheme_<%= index %>">
+		    <h2><%= schema.get_html_translation("concept_section"+index.to_s) %></h2>  
+            <%schema.list_extra_concepts(index).each do |t| %>	   			
+
+	   			<div class="term" id="concept_<%= t[1].short_name %>">
+
+ 				<h4><%= schema.get_html_translation("term_concept") %>: <%= t[1].short_name %></h4>
+	   				<div class="row">
+	   					<div class="span2">
+	   					<h5>Overview</h5>
+	   					</div>
+	   					<div class="span10">
+		   				<table class="table">
+
+		   				 <tr><td><%= schema.get_html_translation("uri") %></td><td><a href="<%= t[1].uri %>"><%= t[1].uri %></a></ts></tr>
+						  <tr><td><%= schema.get_html_translation("pref_label") %></td><td><%= t[1].prefLabel() %> </ts></tr>
+						  <tr><td><%= schema.get_html_translation("alt_label") %></td><td><%= t[1].altLabel() %> </ts></tr>
+                          <tr><td><%= schema.get_html_translation("scope_note") %></td><td><%= t[1].scopeNote() %></ts></tr>
+	                      <% if t[1].comment %>
+							<tr><td><%= schema.get_html_translation("comment") %></td><td><%= t[1].comment %></a></ts></tr>
+		                  <% end %>	
+						  <tr><td><%= schema.get_html_translation("type_of_term") %></td><td><a href="https://www.w3.org/TR/skos-reference/#concepts"><%= t[1].typeOfTerm %></a></ts></tr>
+						  <tr><td><%= schema.get_html_translation("in_scheme") %></td><td><a href="<%= t[1].inScheme %>"><%= t[1].inScheme %></a></ts></tr>
+    				      <% if false %>
+							<tr><td><%= schema.get_html_translation("norrower") %></td><td><%= t[1].narrower %> INFO NOT IN TTLs</ts></tr>
+		                  <% end %>	
+	                      <% if t[1].broader %>
+							<tr><td><%= schema.get_html_translation("broader") %></td><td><a href="<%= t[1].broader %>"><%= t[1].broader %></a></ts></tr>
+		                  <% end %>
+
+						 </table>	   		
+		   				</div>		   				
+					</div>		   	
+	   			</div>
+	   			<div class="row">
+	   				<div class="offset10">
+	   					<a href="#overview">Back to Overview</a>
+					</div>	   					
+	   			</div>
+	   			<hr>
+	  		<%end%>		
+
+		</div>
+
+	 <% end %>	
+
+
+
+		<div id="references">
+			<h2><%= schema.get_html_translation("section9") %></h2>
+
+		     <a href="http://www.unece.org/fileadmin/DAM/cefact/recommendations/rec20/rec20_Rev9e_2014.xls">[1] UN/CEFACT Common Coding System (HTTP)</a>
+
+		 <p>"unit" has a "comment" in the old html page, this comment is absent from our .ttls. The comment: RIPESS recomends the use of the UN/CEFACT common Coding System [1] for this property</p>
+
+		</div>
+
+
+
+	</div>
+
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/codemirror/lib/codemirror.css">
+
+  </body>	
+</html>
