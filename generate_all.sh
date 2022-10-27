@@ -2,6 +2,7 @@
 
 PATH1="ess_vocabs"
 PATH2="ess_vocabs"
+LANGS="en es pt fr it ko"
 
 ### Change PATHs as required.
 ### Default PATHs point to the input examples included with GOTH,
@@ -19,9 +20,6 @@ declare -a TTLINPUTS=("${PATH1}/essglobal-vocab.ttl" \
         "${PATH2}/qualifiers.ttl" \
         "${PATH2}/type-of-labour.ttl")
 
-ruby bin/goth ${TTLINPUTS[@]} -l en > essglobal-vocab_en.html
-ruby bin/goth ${TTLINPUTS[@]} -l es > essglobal-vocab_es.html
-ruby bin/goth ${TTLINPUTS[@]} -l pt > essglobal-vocab_pt.html
-ruby bin/goth ${TTLINPUTS[@]} -l fr > essglobal-vocab_fr.html
-ruby bin/goth ${TTLINPUTS[@]} -l it > essglobal-vocab_it.html
-ruby bin/goth ${TTLINPUTS[@]} -l ko > essglobal-vocab_ko.html
+for lang in $LANGS; do
+    ruby bin/goth "${TTLINPUTS[@]}" -l "$lang" > "essglobal-vocab_$lang.html"
+done
