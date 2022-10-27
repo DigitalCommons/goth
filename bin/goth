@@ -26,6 +26,9 @@ options.each do |opt, arg|
   end
 end
 
+raise "You must supply a template file" unless template
+raise "No such template file" unless File.exist? template
+
 raise "You must supply a translations file" unless translations_file
 raise "No such translations file" unless File.exist? translations_file
  
