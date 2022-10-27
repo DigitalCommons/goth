@@ -20,10 +20,13 @@ module GOTH
 
     attr_reader :html_language
     attr_reader :html_language_s
-    attr_reader :html_translations_csv
+    attr_reader :html_translations
 
 
-    def initialize(html_language_s, model, extra_models = [], introduction=nil)
+    # Note: translations, if supplied, should be a hash of phrase IDs
+    # to hashes of language phrases keyed by two-letter language ID
+    # (lowercase). UTF-8 encoding assumed for non-English characters.
+    def initialize(html_language_s, model, extra_models = [], introduction=nil, translations: nil)
       @model = model
       @introduction = introduction
       @templatehiddens = true
@@ -46,13 +49,14 @@ module GOTH
         @html_language = :ko
       end
 
-      #reads any csv, whether or not the BOM is stored in the first element. UTF-8 encoding needed for non-english characters.
-      @html_translations_csv = CSV.read("ERB_TRANSLATIONS_FULL.csv", headers: true, col_sep: ",", :encoding => 'bom|utf-8')
+      @html_translations = translations || {}
 
+      # This is the default to when no translation is found for a phrase ID in the target language
+      @no_translation = 'NO TRANSLATION AVAILABLE'
       init()
     end
 
-    def Schema.create_from_file(files=[], html_language_s, translations_csv: nil)
+    def Schema.create_from_file(files=[], html_language_s, translations: nil)
       if !files || files.length == 0
         raise "At least one RDF model filename must be provided"
       end
@@ -61,7 +65,18 @@ module GOTH
           RDF::Graph.load(file)
       end
 
-      Schema.new(html_language_s, model, extra_models || [])
+      translations = {} if translations.nil?
+      
+      if translations.is_a? String
+        translations = self.parse_translations_csv(translations)
+      end
+
+      unless translations.is_a? Hash
+        raise "Invalid translations parameter: must be a translations hash "
+                +"or a translations CSV file path, (not: #{translations})"
+      end
+      
+      Schema.new(html_language_s, model, extra_models || [], translations: translations)
      
 
       #      dir = File.dirname(file)
@@ -140,10 +155,8 @@ module GOTH
 
     ####### ERB METHODS #######
     def get_html_translation(id)
-      arr = @html_translations_csv["Phrase_ID"]  #normal
-      #arr = @html_translations_csv["﻿Phrase_ID"]  ##has hidden BOM character!
-      number = arr.each_index.select{|i| arr[i] == id}[0].to_i
-      return   @html_translations_csv[number][@html_language_s]
+      return @no_translation unless phrases = @html_translations[id]
+      return phrases[@html_language_s] || @no_translation
     end
 
     def ontology()
@@ -175,7 +188,17 @@ module GOTH
       return extra_conceptss[index].sort { |x,y| x[1] <=> y[1] }
     end
 
-
+    # Converts a standard translations CSV file into a translations
+    # look-up hash
+    def self.parse_translations_csv(file)
+      index = {}
+      CSV.foreach(file, headers: true, col_sep: ",", :encoding => 'bom|utf-8') do |row|
+        (_, id) = row.delete("Phrase_ID")
+        index[id] = row.to_h
+      end
+      index
+    end
+    
   end
 
 end
