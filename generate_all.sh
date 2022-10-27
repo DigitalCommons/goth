@@ -4,12 +4,6 @@ PATH1="ess_vocabs"
 PATH2="ess_vocabs"
 LANGS="en es pt fr it ko"
 
-### Change PATHs as required.
-### Default PATHs point to the input examples included with GOTH,
-### this data was taken from the SEA repository PATHs below:
-### PATH1=SolidarityEconomyAssociation/map-sse/tree/ica10-draft-locality-vocabs/vocabs/vocab/
-### PATH2=SolidarityEconomyAssociation/map-sse/blob/ica10-draft-locality-vocabs/vocabs/standard/
-
 declare -a TTLINPUTS=("${PATH1}/essglobal-vocab.ttl" \
         "${PATH2}/activities.ttl" \
         "${PATH2}/activities-modified.ttl" \
