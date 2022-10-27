@@ -1,4 +1,4 @@
-#!
+#!/bin/bash
 
 PATH1="ess_vocabs"
 PATH2="ess_vocabs"
