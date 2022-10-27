@@ -23,12 +23,12 @@ module GOTH
     attr_reader :html_translations_csv
 
 
-    def initialize(html_language_s, model, extra_models, introduction=nil)
+    def initialize(html_language_s, model, extra_models = [], introduction=nil)
       @model = model
       @introduction = introduction
       @templatehiddens = true
 
-      @extra_models = extra_models
+      @extra_models = extra_models || []
 
       @html_language_s = html_language_s
       @html_language = :en #default
@@ -52,30 +52,17 @@ module GOTH
       init()
     end
 
-    def Schema.create_from_file(files=nil, html_language_s)
-      if files == nil
-        raise "Filename must be provided"
+    def Schema.create_from_file(files=[], html_language_s, translations_csv: nil)
+      if !files || files.length == 0
+        raise "At least one RDF model filename must be provided"
       end
 
-      model = 0
-      extra_models = []
-      modelloaded = false
-
-      files.each do |x|
-
-        if (modelloaded)
-          extra_models << RDF::Graph.load(x)
-        end
-
-        if (!modelloaded)
-          model = RDF::Graph.load(x)
-          modelloaded = true
-        end
-
+      (model, *extra_models) = files.collect do |file|
+          RDF::Graph.load(file)
       end
 
-      Schema.new(html_language_s, model, extra_models)
-
+      Schema.new(html_language_s, model, extra_models || [])
+     
 
       #      dir = File.dirname(file)
       #      if File.exists?(File.join(dir, "introduction.html"))
