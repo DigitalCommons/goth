@@ -1,4 +1,4 @@
-VER = "0.1"
+VER = "0.1.0"
 
 RDOC_OPTS = ['--quiet', '--title', 'goth Reference', '--main', 'README']
 
