@@ -10,9 +10,9 @@ module GOTH
     end
 
 
-	  ####### ADDITIONAL ERB METHODS #######
+    ####### ADDITIONAL ERB METHODS #######
 
-	  #not tested
+    #not tested
     def sub_class_of()
       parent = @schema.model.first_value(
         RDF::Query::Pattern.new( @resource, GOTH::Namespaces::RDFS.subClassOf ) )
@@ -27,7 +27,7 @@ module GOTH
       return nil
     end
 
-	  #not tested
+    #not tested
     def sub_classes()
       list = []
 

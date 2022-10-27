@@ -7,12 +7,12 @@ module GOTH
       super(resource, schema)
     end
 
-	  #for sorting methods
+    #for sorting methods
     def <=>(other)
       return name() <=> other.name()
     end
 
-	  ####### ADDITIONAL ERB METHODS #######
+    ####### ADDITIONAL ERB METHODS #######
     def uri()
       return @resource.to_s
     end
@@ -34,12 +34,12 @@ module GOTH
       super(resource, schema)
     end
 
-	  ####### ADDITIONAL ERB METHODS #######
+    ####### ADDITIONAL ERB METHODS #######
     def uri()
       return @resource.to_s
     end
 
-	  def authors()
+    def authors()
       authors = []
       @schema.model.query(
         RDF::Query::Pattern.new( @resource, GOTH::Namespaces::FOAF.maker ) ) do |statement|
@@ -65,14 +65,14 @@ module GOTH
     end
 
     def creator()
-	    return get_literal_uri(@schema.model, GOTH::Namespaces::DCTERMS.creator)
+      return get_literal_uri(@schema.model, GOTH::Namespaces::DCTERMS.creator)
     end
 
-	  def publisher()
+    def publisher()
       return get_literal_uri(@schema.model, GOTH::Namespaces::DCTERMS.publisher)
     end
 
-	  def issued()
+    def issued()
       return get_literal(GOTH::Namespaces::DCTERMS.issued)
     end
 

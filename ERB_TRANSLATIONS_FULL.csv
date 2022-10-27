@@ -27,21 +27,21 @@ section1_header,"This document is an up-to-date, authoritative specification of 
 <br>
 Each term is specified with the following minimal set of attributes:<br>
 <br>
-Name:	A token appended to the URI of a DCMI namespace to create the URI of the term.<br>
-Label:	The human-readable label assigned to the term.<br>
-URI:	The Uniform Resource Identifier used to uniquely identify a term.<br>
-Description:	A statement that represents the concept and essential nature of the term.<br>
-Type of Term:	The type of term as described in the DCMI Abstract Model [DCAM] <br>
+Name:  A token appended to the URI of a DCMI namespace to create the URI of the term.<br>
+Label:  The human-readable label assigned to the term.<br>
+URI:  The Uniform Resource Identifier used to uniquely identify a term.<br>
+Description:  A statement that represents the concept and essential nature of the term.<br>
+Type of Term:  The type of term as described in the DCMI Abstract Model [DCAM] <br>
 <br>
 Where applicable, the following attributes provide additional information about a term:<br>
 <br>
-Comment:	Additional information about the term or its application.<br>
-Broader Than:	A Class of which the described term is a Super-Class.<br>
-Narrower Than:	A Class of which the described term is a Sub-Class.<br>
-Has Domain:	A Class of which a resource described by the term is an Instance.<br>
-Has Range:	A Class of which a value described by the term is an Instance.<br>
-Member Of:	An enumerated set of resources (Vocabulary Encoding Scheme) of which the term is a Member.<br>
-Equivalent Property:	A Property to which the described term is equivalent.",NO TRANSLATION AVAILABLE,NO TRANSLATION AVAILABLE,NO TRANSLATION AVAILABLE,NO TRANSLATION AVAILABLE,NO TRANSLATION AVAILABLE,,
+Comment:  Additional information about the term or its application.<br>
+Broader Than:  A Class of which the described term is a Super-Class.<br>
+Narrower Than:  A Class of which the described term is a Sub-Class.<br>
+Has Domain:  A Class of which a resource described by the term is an Instance.<br>
+Has Range:  A Class of which a value described by the term is an Instance.<br>
+Member Of:  An enumerated set of resources (Vocabulary Encoding Scheme) of which the term is a Member.<br>
+Equivalent Property:  A Property to which the described term is equivalent.",NO TRANSLATION AVAILABLE,NO TRANSLATION AVAILABLE,NO TRANSLATION AVAILABLE,NO TRANSLATION AVAILABLE,NO TRANSLATION AVAILABLE,,
 section2,Section 2: Properties,NO TRANSLATION AVAILABLE,NO TRANSLATION AVAILABLE,NO TRANSLATION AVAILABLE,NO TRANSLATION AVAILABLE,NO TRANSLATION AVAILABLE,,
 term_property,Property Name,NO TRANSLATION AVAILABLE,NO TRANSLATION AVAILABLE,NO TRANSLATION AVAILABLE,NO TRANSLATION AVAILABLE,NO TRANSLATION AVAILABLE,,
 uri,URI,URI,URI,URI,URI,URI,URI,URI

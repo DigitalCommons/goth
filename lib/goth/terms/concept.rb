@@ -4,41 +4,41 @@ module GOTH
 
   class Concept < GOTH::LabelledDocObject
 
-	  attr_reader :index
-	  attr_reader :short_name_value
+    attr_reader :index
+    attr_reader :short_name_value
 
     def initialize(resource, schema, index)
       @index = index
-	    super(resource, schema)
-	    @short_name_value = short_name_constructor()
+      super(resource, schema)
+      @short_name_value = short_name_constructor()
     end
 
-	  #helper methods
+    #helper methods
     def short_name_constructor()
       uri = @resource.to_s
       base_uri = get_base()
-	    if base_uri.end_with?("#") || base_uri.end_with?("/")
+      if base_uri.end_with?("#") || base_uri.end_with?("/")
         base_uri = base_uri[0..-2]
       end
       name = uri.gsub(/#{base_uri}(\/|#)?/, "")
-	    return name
+      return name
     end
 
-	  def get_base()
+    def get_base()
       base = Hash.new
-	    sub = []
+      sub = []
       @schema.extra_models[@index].query( RDF::Query::Pattern.new( nil, RDF.type, GOTH::Namespaces::SKOS.ConceptScheme ) ) do |statement|
-		    sub << statement.subject.to_s
-		    base[ statement.subject.to_s] = GOTH::ConceptScheme.new(statement.subject, self)
+        sub << statement.subject.to_s
+        base[ statement.subject.to_s] = GOTH::ConceptScheme.new(statement.subject, self)
       end
       return base[sub[0]].resource.to_s
     end
 
-	  #for sorting methods
-	  #overrides`
+    #for sorting methods
+    #overrides`
     def <=>(other)
-	    return short_name_value.downcase <=> other.short_name_value.downcase
-	  end
+      return short_name_value.downcase <=> other.short_name_value.downcase
+    end
 
 
     ####### ADDITIONAL ERB METHODS #######
@@ -51,23 +51,23 @@ module GOTH
       return "Concept"
     end
 
-	  def altLabel()
-	    return get_literal_language(schema.extra_models[@index], GOTH::Namespaces::SKOS.altLabel)
-	  end
+    def altLabel()
+      return get_literal_language(schema.extra_models[@index], GOTH::Namespaces::SKOS.altLabel)
+    end
 
-	  def inScheme()
+    def inScheme()
       return get_literal_uri(schema.extra_models[@index], GOTH::Namespaces::SKOS.inScheme)
     end
 
- 	  def prefLabel()
+     def prefLabel()
       return get_literal_language(schema.extra_models[@index], GOTH::Namespaces::SKOS.prefLabel)
-	  end
+    end
 
-	  def scopeNote()
+    def scopeNote()
       return get_literal_uri(schema.extra_models[@index], GOTH::Namespaces::SKOS.scopeNote)
     end
 
-	  def broader()
+    def broader()
       return get_literal_uri(schema.extra_models[@index], GOTH::Namespaces::SKOS.broader)
     end
 
@@ -77,22 +77,22 @@ module GOTH
 
   class SubConcept < GOTH::LabelledDocObject
 
-	  attr_reader :short_name_value
+    attr_reader :short_name_value
 
     def initialize(resource, schema)
-	    super(resource, schema)
-	    #@short_name_value = short_name_constructor()
+      super(resource, schema)
+      #@short_name_value = short_name_constructor()
     end
 
-	  #for sorting methods
-	  #overrides`
+    #for sorting methods
+    #overrides`
     def <=>(other)
-	    return label().downcase <=> other.label().downcase
-	  end
+      return label().downcase <=> other.label().downcase
+    end
 
     ####### ADDITIONAL ERB METHODS #######
 
-	  #not tested
+    #not tested
     def sub_class_of()
       parent = @schema.model.first_value(
         RDF::Query::Pattern.new( @resource, GOTH::Namespaces::RDFS.subClassOf ) )
@@ -107,7 +107,7 @@ module GOTH
       return nil
     end
 
-	  #not tested
+    #not tested
     def sub_classes()
       list = []
 
@@ -118,13 +118,13 @@ module GOTH
       return list
     end
 
-	  def issued()
-	    return get_literal_language(schema.extra_models[@index], GOTH::Namespaces::SKOS.issued)
-	  end
+    def issued()
+      return get_literal_language(schema.extra_models[@index], GOTH::Namespaces::SKOS.issued)
+    end
 
-	  def modified()
-	    return get_literal_language(schema.extra_models[@index], GOTH::Namespaces::SKOS.modified)
-	  end
+    def modified()
+      return get_literal_language(schema.extra_models[@index], GOTH::Namespaces::SKOS.modified)
+    end
 
     def equivalentClass()
       return get_literal_uri(schema.extra_models[@index], GOTH::Namespaces::OWL.equivalentClass)
