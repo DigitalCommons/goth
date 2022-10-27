@@ -19,9 +19,9 @@ declare -a TTLINPUTS=("${PATH1}/essglobal-vocab.ttl" \
         "${PATH2}/qualifiers.ttl" \
         "${PATH2}/type-of-labour.ttl")
 
-ruby bin/goth ${TTLINPUTS[@]} -l en -t esstemplate.erb -T ERB_TRANSLATIONS_FULL.csv > essglobal-vocab_en.html
-ruby bin/goth ${TTLINPUTS[@]} -l es -t esstemplate.erb -T ERB_TRANSLATIONS_FULL.csv > essglobal-vocab_es.html
-ruby bin/goth ${TTLINPUTS[@]} -l pt -t esstemplate.erb -T ERB_TRANSLATIONS_FULL.csv > essglobal-vocab_pt.html
-ruby bin/goth ${TTLINPUTS[@]} -l fr -t esstemplate.erb -T ERB_TRANSLATIONS_FULL.csv > essglobal-vocab_fr.html
-ruby bin/goth ${TTLINPUTS[@]} -l it -t esstemplate.erb -T ERB_TRANSLATIONS_FULL.csv > essglobal-vocab_it.html
-ruby bin/goth ${TTLINPUTS[@]} -l ko -t esstemplate.erb -T ERB_TRANSLATIONS_FULL.csv > essglobal-vocab_ko.html
+ruby bin/goth ${TTLINPUTS[@]} -l en > essglobal-vocab_en.html
+ruby bin/goth ${TTLINPUTS[@]} -l es > essglobal-vocab_es.html
+ruby bin/goth ${TTLINPUTS[@]} -l pt > essglobal-vocab_pt.html
+ruby bin/goth ${TTLINPUTS[@]} -l fr > essglobal-vocab_fr.html
+ruby bin/goth ${TTLINPUTS[@]} -l it > essglobal-vocab_it.html
+ruby bin/goth ${TTLINPUTS[@]} -l ko > essglobal-vocab_ko.html

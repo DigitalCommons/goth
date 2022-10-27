@@ -11,29 +11,29 @@ options = GetoptLong.new(
   [ '--translations', '-T', GetoptLong::REQUIRED_ARGUMENT ],
 )
 
-template = "esstemplate.erb"
 language = "en"
-translations_file = nil
+template_file = GOTH::DefaultTemplateFile
+translations_file = GOTH::DefaultTranslationsFile
 
 options.each do |opt, arg|
   case opt
   when '--language'
     language = arg
   when '--template'
-    template = arg
+    template_file = arg
   when '--translations'
     translations_file = arg
   end
 end
 
-raise "You must supply a template file" unless template
-raise "No such template file" unless File.exist? template
+raise "You must supply a template file" unless template_file
+raise "No such template file" unless File.exist? template_file
 
 raise "You must supply a translations file" unless translations_file
 raise "No such translations file" unless File.exist? translations_file
- 
+
 schema = GOTH::Schema.create_from_file(ARGV, language, translations: translations_file)
-generator = GOTH::Generator.new( schema, template )
+generator = GOTH::Generator.new( schema, template_file )
 
 file = generator.run()
 

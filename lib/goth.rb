@@ -29,4 +29,17 @@ module GOTH
 
   end
 
+
+  private
+
+  def self.assetfile(path)
+    File.join(File.dirname(__FILE__), "goth/assets", path)
+  end
+
+  public
+  
+  # Locations of default assets
+  DefaultTranslationsFile = self.assetfile("ERB_TRANSLATIONS_FULL.csv")
+  DefaultTemplateFile = self.assetfile("esstemplate.erb")
+  
 end
