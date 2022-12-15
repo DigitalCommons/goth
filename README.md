@@ -70,4 +70,8 @@ These files contain all the methods required to extract data from the RDF statem
 
 Finally, `goth` includes helper RDF::Vocabularies, as global Namespaces, necessary for extracting this data.
 
+## TESTS
+
+See [tests/README.md](tests/README.md).
+
 
