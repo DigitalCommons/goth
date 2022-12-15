@@ -8,9 +8,12 @@ root = true
 [*]
 end_of_line = lf
 insert_final_newline = true
-
-[*.{js,json,rb,html,erb}]
 indent_style = space
+
+[*.{js,json,rb,html,erb,gemspec,ttl}]
 indent_size = 2
 charset = utf-8
 
+[*.{md}]
+indent_size = 4
+charset = utf-8
