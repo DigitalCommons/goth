@@ -32,8 +32,9 @@ module GOTH
 
   private
 
-  def self.assetfile(path)
-    File.join(File.dirname(__FILE__), "goth/assets", path)
+  # Location of asset files
+  def self.assetfile(filename)
+    File.join(File.dirname(__FILE__), "goth/assets", filename)
   end
 
   public
