@@ -6,15 +6,15 @@ DIR=${SCRIPT%/*}
 LANGS="en es pt fr it ko"
 
 declare -a TTLINPUTS=(
-    "$DIR/ess_vocabs/essglobal-vocab.ttl"
-    "$DIR/ess_vocabs/activities.ttl"
-    "$DIR/ess_vocabs/activities-modified.ttl"
-    "$DIR/ess_vocabs/activities-ica.ttl"
-    "$DIR/ess_vocabs/legal-form.ttl"
-    "$DIR/ess_vocabs/organisational-structure.ttl"
-    "$DIR/ess_vocabs/base-membership-type.ttl"
-    "$DIR/ess_vocabs/qualifiers.ttl"
-    "$DIR/ess_vocabs/type-of-labour.ttl"
+    "$DIR/../lib/goth/assets/ess_vocabs/essglobal-vocab.ttl"
+    "$DIR/../lib/goth/assets/ess_vocabs/ess_vocabs/activities.ttl"
+    "$DIR/../lib/goth/assets/ess_vocabs/ess_vocabs/activities-modified.ttl"
+    "$DIR/../lib/goth/assets/ess_vocabs/ess_vocabs/activities-ica.ttl"
+    "$DIR/../lib/goth/assets/ess_vocabs/ess_vocabs/legal-form.ttl"
+    "$DIR/../lib/goth/assets/ess_vocabs/ess_vocabs/organisational-structure.ttl"
+    "$DIR/../lib/goth/assets/ess_vocabs/ess_vocabs/base-membership-type.ttl"
+    "$DIR/../lib/goth/assets/ess_vocabs/ess_vocabs/qualifiers.ttl"
+    "$DIR/../lib/goth/assets/ess_vocabs/ess_vocabs/type-of-labour.ttl"
 )
 
 rm -rf "$DIR/out"
