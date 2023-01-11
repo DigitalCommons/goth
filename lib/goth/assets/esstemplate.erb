@@ -90,7 +90,7 @@
             <a href="#concept_scheme_5"><%= schema.get_html_translation("concept_section5") %></a><br>
             <a href="#concept_scheme_6"><%= schema.get_html_translation("concept_section6") %></a><br>
             <a href="#concept_scheme_7"><%= schema.get_html_translation("concept_section7") %></a><br>
-            <a href="#references"><%= schema.get_html_translation("section9") %></a><br>
+            <% if !schema.templatehiddens %><a href="#references"><%= schema.get_html_translation("section9") %></a><br><% end %>
           </p>
         </div>
 
@@ -103,57 +103,57 @@
 
           <p><strong><%= schema.get_html_translation("properties") %></strong>:
             <% schema.list_properties().each do |key,val| %>
-              | <a href="#prop_<%= val.short_name %>"><%= val.short_name %></a>
+              | <a href="#<%= val.short_name %>"><%= val.short_name %></a>
             <% end %>
           </p>
           <p><strong><%= schema.get_html_translation("classes") %></strong>:
             <% schema.list_classes().each do |key,val| %>
-              | <a href="#class_<%= val.short_name %>"><%= val.short_name %></a>
+              | <a href="#<%= val.short_name %>"><%= val.short_name %></a>
             <% end %>
           </p>
           <p><strong><%= schema.get_html_translation("vesses") %></strong>:
             <% schema.list_sub_concepts().each do |key,val| %>
-              | <a href="#ves_<%= val.short_name %>"><%= val.short_name %></a>
+              | <a href="#<%= val.short_name %>"><%= val.short_name %></a>
             <% end %>
           </p>
           <p><strong><%= schema.get_html_translation("schema0") %></strong>:
             <% schema.list_extra_concepts(0).each do |key,val| %>
-              | <a href="#concept_<%= val.short_name %>"><%= val.short_name %></a>
+              | <a href="#<%= val.short_name %>"><%= val.short_name %></a>
             <% end %>
           </p>
           <p><strong><%= schema.get_html_translation("schema1") %></strong>:
             <% schema.list_extra_concepts(1).each do |key,val| %>
-              | <a href="#concept_<%= val.short_name %>"><%= val.short_name %></a>
+              | <a href="#<%= val.short_name %>"><%= val.short_name %></a>
             <% end %>
           </p>
           <p><strong><%= schema.get_html_translation("schema2") %></strong>:
             <% schema.list_extra_concepts(2).each do |key,val| %>
-              | <a href="#concept_<%= val.short_name %>"><%= val.short_name %></a>
+              | <a href="#<%= val.short_name %>"><%= val.short_name %></a>
             <% end %>
           </p>
           <p><strong><%= schema.get_html_translation("schema3") %></strong>:
             <% schema.list_extra_concepts(3).each do |key,val| %>
-              | <a href="#concept_<%= val.short_name %>"><%= val.short_name %></a>
+              | <a href="#<%= val.short_name %>"><%= val.short_name %></a>
             <% end %>
           </p>
           <p><strong><%= schema.get_html_translation("schema4") %></strong>:
             <% schema.list_extra_concepts(4).each do |key,val| %>
-              | <a href="#concept_<%= val.short_name %>"><%= val.short_name %></a>
+              | <a href="#<%= val.short_name %>"><%= val.short_name %></a>
             <% end %>
           </p>
           <p><strong><%= schema.get_html_translation("schema5") %></strong>:
             <% schema.list_extra_concepts(5).each do |key,val| %>
-              | <a href="#concept_<%= val.short_name %>"><%= val.short_name %></a>
+              | <a href="#<%= val.short_name %>"><%= val.short_name %></a>
             <% end %>
           </p>
           <p><strong><%= schema.get_html_translation("schema6") %></strong>:
             <% schema.list_extra_concepts(6).each do |key,val| %>
-              | <a href="#concept_<%= val.short_name %>"><%= val.short_name %></a>
+              | <a href="<%= val.short_name %>"><%= val.short_name %></a>
             <% end %>
           </p>
           <p><strong><%= schema.get_html_translation("schema7") %></strong>:
             <% schema.list_extra_concepts(7).each do |key,val| %>
-              | <a href="#concept_<%= val.short_name %>"><%= val.short_name %></a>
+              | <a href="<%= val.short_name %>"><%= val.short_name %></a>
             <% end %>
           </p>
         </div>
@@ -171,7 +171,7 @@
           <h2><%= schema.get_html_translation("section2") %></h2>
 
            <%schema.list_properties().each do |t| %>
-             <div class="term" id="prop_<%= t[1].short_name %>">
+             <div class="term" id="<%= t[1].short_name %>">
 
                <h4><%= schema.get_html_translation("term_property") %>: <%= t[1].short_name %></h4>
                <div class="row">
@@ -193,7 +193,7 @@
                       <% if t[1].sub_property_of.class.to_s == "String" %>
                         <tr><td>Has Parent Property</td><td><a href="<%= t[1].sub_property_of %>"><%= t[1].sub_property_of %></a></td></tr>
                       <% else %>
-                        <tr><td>Has Parent Property</td><td><a href="#prop_<%= t[1].sub_property_of.short_name %>"><%= t[1].sub_property_of.short_name %></a></td></tr>
+                        <tr><td>Has Parent Property</td><td><a href="#<%= t[1].sub_property_of.short_name %>"><%= t[1].sub_property_of.short_name %></a></td></tr>
                        <% end %>
                      <% end %>
                      <% if t[1].sub_properties.length > 0 %>
@@ -201,7 +201,7 @@
                         <td>Sub-Properties</td>
                         <td>
                           <% t[1].sub_properties.each do |child| %>
-                            <a href="#prop_<%= child.short_name %>"><%= child.short_name %></a>
+                            <a href="#<%= child.short_name %>"><%= child.short_name %></a>
                           <% end %>
                         </td>
                       </tr>
@@ -214,7 +214,7 @@
                              <% if cls.class.to_s == "String" %>
                                <a href="<%= cls %>"><%= cls %></a><br>
                              <% else %>
-                               <a href="#class_<%= cls.short_name %>"><%= cls.short_name %></a><br>
+                               <a href="#<%= cls.short_name %>"><%= cls.short_name %></a><br>
                              <% end %>
                            <% end %>
                          </td>
@@ -227,7 +227,7 @@
                              <% if cls.class.to_s == "String" %>
                                <a href="<%= cls %>"><%= cls %></a><br>
                              <% else %>
-                               <a href="#class_<%= cls.short_name %>"><%= cls.short_name %></a><br>
+                               <a href="#<%= cls.short_name %>"><%= cls.short_name %></a><br>
                              <% end %>
                            <% end %>
                          </td>
@@ -271,7 +271,7 @@
           <h2><%= schema.get_html_translation("section3") %></h2>
 
            <%schema.list_classes().each do |t| %>
-             <div class="term" id="class_<%= t[1].short_name %>">
+             <div class="term" id="<%= t[1].short_name %>">
 
                <h4><%= schema.get_html_translation("term_class") %>: <%= t[1].short_name %></h4>
                <div class="row">
@@ -294,7 +294,7 @@
                        <% if t[1].sub_class_of.class.to_s == "String" %>
                          <tr><td>Has Parent Class</td><td><a href="<%= t[1].sub_class_of %>"><%= t[1].sub_class_of %></a></td></tr>
                        <% else %>
-                         <tr><td>Has Parent Class</td><td><a href="#class_<%= t[1].sub_class_of.short_name %>"><%= t[1].sub_class_of.short_name %></a></td></tr>
+                         <tr><td>Has Parent Class</td><td><a href="#<%= t[1].sub_class_of.short_name %>"><%= t[1].sub_class_of.short_name %></a></td></tr>
                        <% end %>
                      <% end %>
                      <% if t[1].sub_classes.length > 0 %>
@@ -302,7 +302,7 @@
                         <td>Sub-Classes</td>
                         <td>
                           <% t[1].sub_classes.each do |child| %>
-                            <a href="#class_<%= child.short_name %>"><%= child.short_name %></a>
+                            <a href="#<%= child.short_name %>"><%= child.short_name %></a>
                           <% end %>
                         </td>
                       </tr>
@@ -341,7 +341,7 @@
           <h2><%= schema.get_html_translation("section4") %></h2>
 
           <%schema.list_sub_concepts().each do |t| %>
-             <div class="term" id="ves_<%= t[1].short_name %>">
+             <div class="term" id="<%= t[1].short_name %>">
 
               <h4><%= schema.get_html_translation("term_ves") %>: <%= t[1].short_name %></h4>
                <div class="row">
@@ -364,7 +364,7 @@
                        <% if t[1].sub_class_of.class.to_s == "String" %>
                          <tr><td>Has Parent Class</td><td><a href="<%= t[1].sub_class_of %>"><%= t[1].sub_class_of %></a></td></tr>
                        <% else %>
-                         <tr><td>Has Parent Class</td><td><a href="#class_<%= t[1].sub_class_of.short_name %>"><%= t[1].sub_class_of.short_name %></a></td></tr>
+                         <tr><td>Has Parent Class</td><td><a href="#<%= t[1].sub_class_of.short_name %>"><%= t[1].sub_class_of.short_name %></a></td></tr>
                        <% end %>
                      <% end %>
                      <% if t[1].sub_classes.length > 0 %>
@@ -372,7 +372,7 @@
                         <td>Sub-Classes</td>
                         <td>
                           <% t[1].sub_classes.each do |child| %>
-                            <a href="#class_<%= child.short_name %>"><%= child.short_name %></a>
+                            <a href="#<%= child.short_name %>"><%= child.short_name %></a>
                           <% end %>
                         </td>
                       </tr>
@@ -415,7 +415,7 @@
             <h2><%= schema.get_html_translation("concept_section"+index.to_s) %></h2>
             <%schema.list_extra_concepts(index).each do |t| %>
 
-               <div class="term" id="concept_<%= t[1].short_name %>">
+               <div class="term" id="<%= t[1].short_name %>">
 
                  <h4><%= schema.get_html_translation("term_concept") %>: <%= t[1].short_name %></h4>
                  <div class="row">
